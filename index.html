@@ -1,1 +1,1109 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Тест на Высокочувствительность (HSP)</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        /* AnmiTali's HIG Design System */
+        :root {
+            /* Светлая тема */
+            --hig-bg-primary: #FFFFFF;
+            --hig-bg-secondary: #F8F9FA;
+            --hig-text-primary: #2D3748;
+            --hig-text-secondary: #718096;
+            --hig-text-light: #A0AEC0;
+            --hig-accent: #10B981;
+            --hig-accent-hover: #059669;
+            --hig-border: #E2E8F0;
+            --hig-shadow: rgba(0, 0, 0, 0.1);
+            --hig-shadow-hover: rgba(0, 0, 0, 0.15);
+            
+            /* Отступы */
+            --hig-space-xs: 8px;
+            --hig-space-sm: 16px;
+            --hig-space-md: 24px;
+            --hig-space-lg: 32px;
+            --hig-space-xl: 48px;
+            --hig-space-2xl: 64px;
+            
+            /* Скругления */
+            --hig-radius-sm: 8px;
+            --hig-radius-md: 12px;
+            --hig-radius-lg: 16px;
+            --hig-radius-xl: 24px;
+            
+            /* Анимации */
+            --hig-transition: 200ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
 
+        /* Темная тема */
+        [data-theme="dark"] {
+            --hig-bg-primary: #1A202C;
+            --hig-bg-secondary: #2D3748;
+            --hig-text-primary: #F7FAFC;
+            --hig-text-secondary: #CBD5E0;
+            --hig-text-light: #718096;
+            --hig-accent: #68D391;
+            --hig-accent-hover: #48BB78;
+            --hig-border: #4A5568;
+            --hig-shadow: rgba(0, 0, 0, 0.3);
+            --hig-shadow-hover: rgba(0, 0, 0, 0.4);
+        }
+
+        /* Базовые стили */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: var(--hig-bg-primary);
+            color: var(--hig-text-primary);
+            line-height: 1.6;
+            transition: var(--hig-transition);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* Контейнер */
+        .container {
+            width: 100%;
+            max-width: 800px;
+            padding: var(--hig-space-lg);
+        }
+
+        /* Хедер */
+        .header {
+            text-align: center;
+            margin-bottom: var(--hig-space-2xl);
+        }
+
+        .header h1 {
+            font-size: 2.25rem;
+            font-weight: 600;
+            margin-bottom: var(--hig-space-sm);
+            letter-spacing: -0.025em;
+            background: linear-gradient(135deg, var(--hig-text-primary) 0%, var(--hig-accent) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .header p {
+            color: var(--hig-text-secondary);
+            font-size: 1.125rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Переключатель темы */
+        .theme-toggle {
+            position: fixed;
+            top: var(--hig-space-md);
+            right: var(--hig-space-md);
+            background: var(--hig-bg-secondary);
+            border: 1px solid var(--hig-border);
+            border-radius: var(--hig-radius-md);
+            padding: var(--hig-space-sm);
+            cursor: pointer;
+            transition: var(--hig-transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 48px;
+            height: 48px;
+            font-size: 1.25rem;
+            z-index: 1000;
+        }
+
+        .theme-toggle:hover {
+            background: var(--hig-border);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px var(--hig-shadow);
+        }
+
+        /* Карточки */
+        .card {
+            background: var(--hig-bg-primary);
+            border: 1px solid var(--hig-border);
+            border-radius: var(--hig-radius-lg);
+            padding: var(--hig-space-xl);
+            margin-bottom: var(--hig-space-lg);
+            box-shadow: 0 1px 3px var(--hig-shadow);
+            transition: var(--hig-transition);
+        }
+
+        .card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px var(--hig-shadow-hover);
+        }
+
+        /* Типографика */
+        h2 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: var(--hig-space-md);
+            color: var(--hig-text-primary);
+        }
+
+        h3 {
+            font-size: 1.25rem;
+            font-weight: 500;
+            margin-bottom: var(--hig-space-sm);
+            color: var(--hig-text-primary);
+        }
+
+        p {
+            margin-bottom: var(--hig-space-md);
+            color: var(--hig-text-secondary);
+        }
+
+        /* Вопросы */
+        .question {
+            margin-bottom: var(--hig-space-xl);
+            padding-bottom: var(--hig-space-lg);
+            border-bottom: 1px solid var(--hig-border);
+        }
+
+        .question:last-child {
+            border-bottom: none;
+            margin-bottom: var(--hig-space-lg);
+        }
+
+        .question p {
+            font-size: 1.1rem;
+            font-weight: 500;
+            margin-bottom: var(--hig-space-md);
+            color: var(--hig-text-primary);
+        }
+
+        /* Слайдеры */
+        .slider-container {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: var(--hig-space-sm);
+        }
+
+        .slider {
+            -webkit-appearance: none;
+            width: 100%;
+            height: 8px;
+            border-radius: var(--hig-radius-sm);
+            background: var(--hig-bg-secondary);
+            outline: none;
+            transition: var(--hig-transition);
+        }
+
+        .slider:hover {
+            background: var(--hig-border);
+        }
+
+        .slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: var(--hig-accent);
+            cursor: pointer;
+            transition: var(--hig-transition);
+            box-shadow: 0 2px 8px rgba(16, 185, 129, 0.3);
+        }
+
+        .slider::-webkit-slider-thumb:hover {
+            background: var(--hig-accent-hover);
+            transform: scale(1.1);
+            box-shadow: 0 4px 16px rgba(16, 185, 129, 0.4);
+        }
+
+        .slider::-moz-range-thumb {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: var(--hig-accent);
+            cursor: pointer;
+            transition: var(--hig-transition);
+            border: none;
+            box-shadow: 0 2px 8px rgba(16, 185, 129, 0.3);
+        }
+
+        .slider::-moz-range-thumb:hover {
+            background: var(--hig-accent-hover);
+            transform: scale(1.1);
+        }
+
+        .scale-labels {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.875rem;
+            color: var(--hig-text-light);
+            margin-top: var(--hig-space-xs);
+        }
+
+        .value-display {
+            text-align: center;
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: var(--hig-accent);
+            margin-top: var(--hig-space-sm);
+            padding: var(--hig-space-xs) var(--hig-space-sm);
+            background: rgba(16, 185, 129, 0.1);
+            border-radius: var(--hig-radius-sm);
+            width: fit-content;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Кнопки */
+        .btn {
+            background: var(--hig-accent);
+            color: white;
+            border: none;
+            border-radius: var(--hig-radius-md);
+            padding: var(--hig-space-md) var(--hig-space-xl);
+            font-size: 1.1rem;
+            font-weight: 500;
+            font-family: inherit;
+            cursor: pointer;
+            transition: var(--hig-transition);
+            width: 100%;
+            margin-top: var(--hig-space-lg);
+            box-shadow: 0 2px 8px rgba(16, 185, 129, 0.3);
+        }
+
+        .btn:hover {
+            background: var(--hig-accent-hover);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 16px rgba(16, 185, 129, 0.4);
+        }
+
+        .btn-secondary {
+            background: var(--hig-bg-primary);
+            color: var(--hig-text-primary);
+            border: 1px solid var(--hig-border);
+            box-shadow: 0 1px 3px var(--hig-shadow);
+        }
+
+        .btn-secondary:hover {
+            background: var(--hig-bg-secondary);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px var(--hig-shadow);
+        }
+
+        /* Результаты */
+        .results {
+            display: none;
+        }
+
+        .result-header {
+            text-align: center;
+            margin-bottom: var(--hig-space-xl);
+        }
+
+        .score-display {
+            font-size: 3rem;
+            font-weight: 600;
+            color: var(--hig-accent);
+            text-align: center;
+            margin: var(--hig-space-lg) 0;
+            padding: var(--hig-space-lg);
+            background: rgba(16, 185, 129, 0.1);
+            border-radius: var(--hig-radius-lg);
+        }
+
+        /* Индикатор прогресса */
+        .score-bar {
+            width: 100%;
+            height: 12px;
+            background: var(--hig-bg-secondary);
+            border-radius: var(--hig-radius-sm);
+            margin: var(--hig-space-lg) 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .score-indicator {
+            height: 100%;
+            background: linear-gradient(90deg, var(--hig-accent), #48BB78);
+            border-radius: var(--hig-radius-sm);
+            transition: width 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        .score-labels {
+            display: flex;
+            justify-content: space-between;
+            color: var(--hig-text-light);
+            font-size: 0.875rem;
+            margin-top: var(--hig-space-xs);
+        }
+
+        /* Подшкалы */
+        .subscales {
+            margin-top: var(--hig-space-xl);
+        }
+
+        .subscale {
+            margin-bottom: var(--hig-space-lg);
+            padding: var(--hig-space-md);
+            background: var(--hig-bg-secondary);
+            border-radius: var(--hig-radius-md);
+        }
+
+        .subscale-name {
+            font-weight: 500;
+            margin-bottom: var(--hig-space-sm);
+            color: var(--hig-text-primary);
+        }
+
+        .subscale-bar {
+            width: 100%;
+            height: 8px;
+            background: var(--hig-border);
+            border-radius: var(--hig-radius-sm);
+            margin-bottom: var(--hig-space-sm);
+            overflow: hidden;
+        }
+
+        .subscale-score {
+            height: 100%;
+            background: var(--hig-accent);
+            border-radius: var(--hig-radius-sm);
+            transition: width 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .subscale-value {
+            text-align: right;
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--hig-accent);
+        }
+
+        /* Интерпретация */
+        .interpretation {
+            margin-bottom: var(--hig-space-xl);
+            padding: var(--hig-space-lg);
+            background: var(--hig-bg-secondary);
+            border-radius: var(--hig-radius-lg);
+            border-left: 4px solid var(--hig-accent);
+        }
+
+        .interpretation ul {
+            margin-left: var(--hig-space-md);
+            color: var(--hig-text-secondary);
+        }
+
+        .interpretation li {
+            margin-bottom: var(--hig-space-xs);
+        }
+
+        /* Футер */
+        .footer {
+            text-align: center;
+            margin-top: var(--hig-space-2xl);
+            padding: var(--hig-space-xl);
+            color: var(--hig-text-light);
+            font-size: 0.875rem;
+            border-top: 1px solid var(--hig-border);
+        }
+
+        /* Адаптивность */
+        @media (max-width: 768px) {
+            .container {
+                padding: var(--hig-space-md);
+            }
+
+            .header h1 {
+                font-size: 1.875rem;
+            }
+
+            .card {
+                padding: var(--hig-space-lg);
+            }
+
+            .theme-toggle {
+                top: var(--hig-space-sm);
+                right: var(--hig-space-sm);
+                width: 40px;
+                height: 40px;
+                font-size: 1rem;
+            }
+        }
+
+        /* Анимации */
+        .fade-in {
+            animation: fadeIn 0.6s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Учет настройки reduce motion */
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Переключатель темы -->
+    <button class="theme-toggle" onclick="toggleTheme()">
+        <span id="theme-icon">🌙</span>
+    </button>
+
+    <div class="container">
+        <!-- Хедер -->
+        <header class="header fade-in">
+            <h1>Тест на Высокочувствительность</h1>
+            <p>Определите свой уровень высокочувствительности на основе теста Dr. Elaine Aron</p>
+        </header>
+
+        <!-- Введение -->
+        <section class="card fade-in">
+            <h2>Что такое Высокочувствительность (HSP)?</h2>
+            <p>
+                Высокочувствительная личность (Highly Sensitive Person, HSP) — термин, предложенный психологом Элейн Арон. Согласно ее теории, примерно 15-20% населения обладают повышенной чувствительностью к сенсорным стимулам и глубже обрабатывают информацию.
+            </p>
+            <p>
+                Высокочувствительные люди отличаются более глубоким восприятием деталей окружающего мира, повышенной эмоциональной реакцией на внешние и внутренние стимулы, а также богатым внутренним миром. Это врожденная черта, найденная более чем у 100 видов животных.
+            </p>
+            <p>
+                Пройдите этот тест, чтобы определить, насколько вы высокочувствительны. Оценивайте каждое утверждение по шкале от 1 до 7, где 1 - совсем не относится к вам, а 7 - полностью относится.
+            </p>
+        </section>
+
+        <!-- Тест -->
+        <section class="card fade-in" id="test">
+            <h2>Тест HSP (27 вопросов)</h2>
+            <div class="questions-container">
+                <!-- Генерируем все 27 вопросов -->
+                <div class="question" id="q1">
+                    <p>1. Вы легко перегружаетесь от сильных сенсорных воздействий?</p>
+                    <div class="slider-container">
+                        <input type="range" min="1" max="7" value="4" class="slider" id="slider1">
+                        <div class="scale-labels">
+                            <span>Совсем нет</span>
+                            <span>Умеренно</span>
+                            <span>Чрезвычайно</span>
+                        </div>
+                        <div class="value-display" id="value1">4</div>
+                    </div>
+                </div>
+
+                <div class="question" id="q2">
+                    <p>2. Вы замечаете тонкие детали и нюансы в своем окружении?</p>
+                    <div class="slider-container">
+                        <input type="range" min="1" max="7" value="4" class="slider" id="slider2">
+                        <div class="scale-labels">
+                            <span>Совсем нет</span>
+                            <span>Умеренно</span>
+                            <span>Чрезвычайно</span>
+                        </div>
+                        <div class="value-display" id="value2">4</div>
+                    </div>
+                </div>
+
+                <div class="question" id="q3">
+                    <p>3. Влияет ли на вас настроение других людей?</p>
+                    <div class="slider-container">
+                        <input type="range" min="1" max="7" value="4" class="slider" id="slider3">
+                        <div class="scale-labels">
+                            <span>Совсем нет</span>
+                            <span>Умеренно</span>
+                            <span>Чрезвычайно</span>
+                        </div>
+                        <div class="value-display" id="value3">4</div>
+                    </div>
+                </div>
+
+                <div class="question" id="q4">
+                    <p>4. Вы более чувствительны к боли, чем другие?</p>
+                    <div class="slider-container">
+                        <input type="range" min="1" max="7" value="4" class="slider" id="slider4">
+                        <div class="scale-labels">
+                            <span>Совсем нет</span>
+                            <span>Умеренно</span>
+                            <span>Чрезвычайно</span>
+                        </div>
+                        <div class="value-display" id="value4">4</div>
+                    </div>
+                </div>
+
+                <div class="question" id="q5">
+                    <p>5. Вам необходимо уединяться в напряженные дни, чтобы отдохнуть от стимуляции?</p>
+                    <div class="slider-container">
+                        <input type="range" min="1" max="7" value="4" class="slider" id="slider5">
+                        <div class="scale-labels">
+                            <span>Совсем нет</span>
+                            <span>Умеренно</span>
+                            <span>Чрезвычайно</span>
+                        </div>
+                        <div class="value-display" id="value5">4</div>
+                    </div>
+                </div>
+
+                <div class="question" id="q6">
+                    <p>6. Вы особенно чувствительны к эффектам кофеина?</p>
+                    <div class="slider-container">
+                        <input type="range" min="1" max="7" value="4" class="slider" id="slider6">
+                        <div class="scale-labels">
+                            <span>Совсем нет</span>
+                            <span>Умеренно</span>
+                            <span>Чрезвычайно</span>
+                        </div>
+                        <div class="value-display" id="value6">4</div>
+                    </div>
+                </div>
+
+                <div class="question" id="q7">
+                    <p>7. Вас легко перегружают яркий свет, сильные запахи, грубые ткани или громкие звуки?</p>
+                    <div class="slider-container">
+                        <input type="range" min="1" max="7" value="4" class="slider" id="slider7">
+                        <div class="scale-labels">
+                            <span>Совсем нет</span>
+                            <span>Умеренно</span>
+                            <span>Чрезвычайно</span>
+                        </div>
+                        <div class="value-display" id="value7">4</div>
+                    </div>
+                </div>
+
+                <div class="question" id="q8">
+                    <p>8. У вас богатый, сложный внутренний мир?</p>
+                    <div class="slider-container">
+                        <input type="range" min="1" max="7" value="4" class="slider" id="slider8">
+                        <div class="scale-labels">
+                            <span>Совсем нет</span>
+                            <span>Умеренно</span>
+                            <span>Чрезвычайно</span>
+                        </div>
+                        <div class="value-display" id="value8">4</div>
+                    </div>
+                </div>
+
+                <div class="question" id="q9">
+                    <p>9. Вам неприятны громкие звуки?</p>
+                    <div class="slider-container">
+                        <input type="range" min="1" max="7" value="4" class="slider" id="slider9">
+                        <div class="scale-labels">
+                            <span>Совсем нет</span>
+                            <span>Умеренно</span>
+                            <span>Чрезвычайно</span>
+                        </div>
+                        <div class="value-display" id="value9">4</div>
+                    </div>
+                </div>
+
+                <div class="question" id="q10">
+                    <p>10. Вас глубоко трогает искусство или музыка?</p>
+                    <div class="slider-container">
+                        <input type="range" min="1" max="7" value="4" class="slider" id="slider10">
+                        <div class="scale-labels">
+                            <span>Совсем нет</span>
+                            <span>Умеренно</span>
+                            <span>Чрезвычайно</span>
+                        </div>
+                        <div class="value-display" id="value10">4</div>
+                    </div>
+                </div>
+
+                <div class="question" id="q11">
+                    <p>11. Ваша нервная система иногда настолько истощается, что вам нужно побыть одному?</p>
+                    <div class="slider-container">
+                        <input type="range" min="1" max="7" value="4" class="slider" id="slider11">
+                        <div class="scale-labels">
+                            <span>Совсем нет</span>
+                            <span>Умеренно</span>
+                            <span>Чрезвычайно</span>
+                        </div>
+                        <div class="value-display" id="value11">4</div>
+                    </div>
+                </div>
+
+                <div class="question" id="q12">
+                    <p>12. Вы добросовестны и внимательны к деталям?</p>
+                    <div class="slider-container">
+                        <input type="range" min="1" max="7" value="4" class="slider" id="slider12">
+                        <div class="scale-labels">
+                            <span>Совсем нет</span>
+                            <span>Умеренно</span>
+                            <span>Чрезвычайно</span>
+                        </div>
+                        <div class="value-display" id="value12">4</div>
+                    </div>
+                </div>
+
+                <div class="question" id="q13">
+                    <p>13. Вы легко вздрагиваете от неожиданности?</p>
+                    <div class="slider-container">
+                        <input type="range" min="1" max="7" value="4" class="slider" id="slider13">
+                        <div class="scale-labels">
+                            <span>Совсем нет</span>
+                            <span>Умеренно</span>
+                            <span>Чрезвычайно</span>
+                        </div>
+                        <div class="value-display" id="value13">4</div>
+                    </div>
+                </div>
+
+                <div class="question" id="q14">
+                    <p>14. Вы нервничаете, когда нужно сделать много дел за короткое время?</p>
+                    <div class="slider-container">
+                        <input type="range" min="1" max="7" value="4" class="slider" id="slider14">
+                        <div class="scale-labels">
+                            <span>Совсем нет</span>
+                            <span>Умеренно</span>
+                            <span>Чрезвычайно</span>
+                        </div>
+                        <div class="value-display" id="value14">4</div>
+                    </div>
+                </div>
+
+                <div class="question" id="q15">
+                    <p>15. Когда людям неудобно в физической среде, вы знаете, что нужно сделать, чтобы им стало комфортнее?</p>
+                    <div class="slider-container">
+                        <input type="range" min="1" max="7" value="4" class="slider" id="slider15">
+                        <div class="scale-labels">
+                            <span>Совсем нет</span>
+                            <span>Умеренно</span>
+                            <span>Чрезвычайно</span>
+                        </div>
+                        <div class="value-display" id="value15">4</div>
+                    </div>
+                </div>
+
+                <div class="question" id="q16">
+                    <p>16. Вас раздражает, когда люди пытаются заставить вас делать слишком много дел одновременно?</p>
+                    <div class="slider-container">
+                        <input type="range" min="1" max="7" value="4" class="slider" id="slider16">
+                        <div class="scale-labels">
+                            <span>Совсем нет</span>
+                            <span>Умеренно</span>
+                            <span>Чрезвычайно</span>
+                        </div>
+                        <div class="value-display" id="value16">4</div>
+                    </div>
+                </div>
+
+                <div class="question" id="q17">
+                    <p>17. Вы стараетесь избегать ошибок и ничего не забывать?</p>
+                    <div class="slider-container">
+                        <input type="range" min="1" max="7" value="4" class="slider" id="slider17">
+                        <div class="scale-labels">
+                            <span>Совсем нет</span>
+                            <span>Умеренно</span>
+                            <span>Чрезвычайно</span>
+                        </div>
+                        <div class="value-display" id="value17">4</div>
+                    </div>
+                </div>
+
+                <div class="question" id="q18">
+                    <p>18. Вы стараетесь избегать насильственных фильмов и телешоу?</p>
+                    <div class="slider-container">
+                        <input type="range" min="1" max="7" value="4" class="slider" id="slider18">
+                        <div class="scale-labels">
+                            <span>Совсем нет</span>
+                            <span>Умеренно</span>
+                            <span>Чрезвычайно</span>
+                        </div>
+                        <div class="value-display" id="value18">4</div>
+                    </div>
+                </div>
+
+                <div class="question" id="q19">
+                    <p>19. Вы испытываете неприятное возбуждение, когда вокруг происходит много событий?</p>
+                    <div class="slider-container">
+                        <input type="range" min="1" max="7" value="4" class="slider" id="slider19">
+                        <div class="scale-labels">
+                            <span>Совсем нет</span>
+                            <span>Умеренно</span>
+                            <span>Чрезвычайно</span>
+                        </div>
+                        <div class="value-display" id="value19">4</div>
+                    </div>
+                </div>
+
+                <div class="question" id="q20">
+                    <p>20. Сильный голод вызывает у вас сильную реакцию, нарушая концентрацию или настроение?</p>
+                    <div class="slider-container">
+                        <input type="range" min="1" max="7" value="4" class="slider" id="slider20">
+                        <div class="scale-labels">
+                            <span>Совсем нет</span>
+                            <span>Умеренно</span>
+                            <span>Чрезвычайно</span>
+                        </div>
+                        <div class="value-display" id="value20">4</div>
+                    </div>
+                </div>
+
+                <div class="question" id="q21">
+                    <p>21. Изменения в жизни сильно выбивают вас из колеи?</p>
+                    <div class="slider-container">
+                        <input type="range" min="1" max="7" value="4" class="slider" id="slider21">
+                        <div class="scale-labels">
+                            <span>Совсем нет</span>
+                            <span>Умеренно</span>
+                            <span>Чрезвычайно</span>
+                        </div>
+                        <div class="value-display" id="value21">4</div>
+                    </div>
+                </div>
+
+                <div class="question" id="q22">
+                    <p>22. Вы замечаете и наслаждаетесь тонкими ароматами, вкусами, звуками, произведениями искусства?</p>
+                    <div class="slider-container">
+                        <input type="range" min="1" max="7" value="4" class="slider" id="slider22">
+                        <div class="scale-labels">
+                            <span>Совсем нет</span>
+                            <span>Умеренно</span>
+                            <span>Чрезвычайно</span>
+                        </div>
+                        <div class="value-display" id="value22">4</div>
+                    </div>
+                </div>
+
+                <div class="question" id="q23">
+                    <p>23. Вам неприятно, когда вокруг много всего происходит одновременно?</p>
+                    <div class="slider-container">
+                        <input type="range" min="1" max="7" value="4" class="slider" id="slider23">
+                        <div class="scale-labels">
+                            <span>Совсем нет</span>
+                            <span>Умеренно</span>
+                            <span>Чрезвычайно</span>
+                        </div>
+                        <div class="value-display" id="value23">4</div>
+                    </div>
+                </div>
+
+                <div class="question" id="q24">
+                    <p>24. Для вас приоритетно организовать свою жизнь так, чтобы избегать расстраивающих или перегружающих ситуаций?</p>
+                    <div class="slider-container">
+                        <input type="range" min="1" max="7" value="4" class="slider" id="slider24">
+                        <div class="scale-labels">
+                            <span>Совсем нет</span>
+                            <span>Умеренно</span>
+                            <span>Чрезвычайно</span>
+                        </div>
+                        <div class="value-display" id="value24">4</div>
+                    </div>
+                </div>
+
+                <div class="question" id="q25">
+                    <p>25. Вас беспокоят интенсивные стимулы, такие как громкие звуки или хаотичные сцены?</p>
+                    <div class="slider-container">
+                        <input type="range" min="1" max="7" value="4" class="slider" id="slider25">
+                        <div class="scale-labels">
+                            <span>Совсем нет</span>
+                            <span>Умеренно</span>
+                            <span>Чрезвычайно</span>
+                        </div>
+                        <div class="value-display" id="value25">4</div>
+                    </div>
+                </div>
+
+                <div class="question" id="q26">
+                    <p>26. Когда вы должны соревноваться или вас наблюдают при выполнении задачи, вы становитесь настолько нервным, что выполняете её хуже обычного?</p>
+                    <div class="slider-container">
+                        <input type="range" min="1" max="7" value="4" class="slider" id="slider26">
+                        <div class="scale-labels">
+                            <span>Совсем нет</span>
+                            <span>Умеренно</span>
+                            <span>Чрезвычайно</span>
+                        </div>
+                        <div class="value-display" id="value26">4</div>
+                    </div>
+                </div>
+
+                <div class="question" id="q27">
+                    <p>27. Когда вы были ребенком, родители или учителя считали вас чувствительным или застенчивым?</p>
+                    <div class="slider-container">
+                        <input type="range" min="1" max="7" value="4" class="slider" id="slider27">
+                        <div class="scale-labels">
+                            <span>Совсем нет</span>
+                            <span>Умеренно</span>
+                            <span>Чрезвычайно</span>
+                        </div>
+                        <div class="value-display" id="value27">4</div>
+                    </div>
+                </div>
+            </div>
+
+            <button class="btn" id="submit-btn">Рассчитать результаты</button>
+        </section>
+
+        <!-- Результаты -->
+        <section class="card results" id="results">
+            <div class="result-header">
+                <h2>Ваши результаты</h2>
+                <p>Анализ вашего уровня высокочувствительности (HSP)</p>
+            </div>
+
+            <div class="score-display" id="total-score">4.5</div>
+
+            <div class="score-bar">
+                <div class="score-indicator" id="score-indicator" style="width: 65%;"></div>
+            </div>
+
+            <div class="score-labels">
+                <span>Низкий (1)</span>
+                <span>Средний (4)</span>
+                <span>Высокий (7)</span>
+            </div>
+
+            <div class="interpretation">
+                <h3>Интерпретация результатов</h3>
+                <div id="interpretation-text">
+                    <p>Ваш результат показывает средний уровень высокочувствительности. Это означает, что у вас есть некоторые черты HSP, но они не настолько выражены как у людей с высоким уровнем чувствительности.</p>
+                </div>
+            </div>
+
+            <div class="subscales">
+                <h3>Подшкалы чувствительности</h3>
+                <p>На основе исследований доктора Элейн Арон, высокая чувствительность включает 6 основных аспектов:</p>
+
+                <div class="subscale">
+                    <div class="subscale-name">Сенсорная чувствительность</div>
+                    <div class="subscale-bar">
+                        <div class="subscale-score" id="subscale1" style="width: 70%;"></div>
+                    </div>
+                    <div class="subscale-value" id="subscale1-value">4.9</div>
+                </div>
+
+                <div class="subscale">
+                    <div class="subscale-name">Эстетическая чувствительность</div>
+                    <div class="subscale-bar">
+                        <div class="subscale-score" id="subscale2" style="width: 55%;"></div>
+                    </div>
+                    <div class="subscale-value" id="subscale2-value">3.9</div>
+                </div>
+
+                <div class="subscale">
+                    <div class="subscale-name">Эмоциональная интенсивность</div>
+                    <div class="subscale-bar">
+                        <div class="subscale-score" id="subscale3" style="width: 85%;"></div>
+                    </div>
+                    <div class="subscale-value" id="subscale3-value">5.9</div>
+                </div>
+
+                <div class="subscale">
+                    <div class="subscale-name">Восприимчивость к перегрузке</div>
+                    <div class="subscale-bar">
+                        <div class="subscale-score" id="subscale4" style="width: 60%;"></div>
+                    </div>
+                    <div class="subscale-value" id="subscale4-value">4.2</div>
+                </div>
+
+                <div class="subscale">
+                    <div class="subscale-name">Глубина обработки</div>
+                    <div class="subscale-bar">
+                        <div class="subscale-score" id="subscale5" style="width: 75%;"></div>
+                    </div>
+                    <div class="subscale-value" id="subscale5-value">5.3</div>
+                </div>
+
+                <div class="subscale">
+                    <div class="subscale-name">Межличностная чувствительность</div>
+                    <div class="subscale-bar">
+                        <div class="subscale-score" id="subscale6" style="width: 65%;"></div>
+                    </div>
+                    <div class="subscale-value" id="subscale6-value">4.5</div>
+                </div>
+            </div>
+
+            <div class="interpretation">
+                <h3>Что означают ваши результаты?</h3>
+                <p>
+                    Высокочувствительные люди (HSP) обычно имеют более глубокую нервную систему, которая обрабатывает сенсорную информацию тщательнее. Это означает, что они замечают тонкие детали, которые другие могут пропустить, и могут чувствовать себя перегруженными в стимулирующей среде.
+                </p>
+                <p>
+                    HSP не является расстройством или диагнозом, а просто врожденной чертой, которая встречается примерно у 15-20% населения. Обладание этой чертой имеет как преимущества, так и сложности.
+                </p>
+                <p><strong>Уровни HSP:</strong></p>
+                <ul>
+                    <li><strong>Низкий уровень (1-3)</strong>: Вы менее чувствительны к окружающей среде и можете легче адаптироваться к интенсивным стимулам.</li>
+                    <li><strong>Средний уровень (3-5)</strong>: У вас умеренный уровень чувствительности, с некоторыми чертами HSP, но без крайней чувствительности.</li>
+                    <li><strong>Высокий уровень (5-7)</strong>: Вы, вероятно, высокочувствительный человек (HSP), чья нервная система глубже обрабатывает информацию и более восприимчива к стимулам.</li>
+                </ul>
+            </div>
+
+            <div class="interpretation">
+                <h3>Рекомендации для HSP</h3>
+                <p>Если у вас высокий уровень чувствительности, вот несколько рекомендаций, которые могут помочь:</p>
+                <ul>
+                    <li>Создайте тихое, спокойное пространство, куда вы можете уйти, когда чувствуете перегрузку</li>
+                    <li>Практикуйте регулярное самоуспокоение через медитацию, глубокое дыхание или йогу</li>
+                    <li>Планируйте достаточно времени для отдыха и восстановления после социальных мероприятий или стимулирующей деятельности</li>
+                    <li>Выстраивайте здоровые границы в отношениях и не стесняйтесь говорить "нет"</li>
+                    <li>Цените свои сильные стороны как HSP: интуицию, внимание к деталям, эмпатию и глубину мышления</li>
+                </ul>
+            </div>
+
+            <button class="btn btn-secondary" id="restart-btn">Пройти тест заново</button>
+        </section>
+    </div>
+
+    <!-- Футер -->
+    <footer class="footer">
+        <p>Основано на исследованиях доктора Элейн Н. Арон. Тест HSP разработан для образовательных целей.</p>
+        <p>© 2025 HSP Тест | Все права защищены</p>
+    </footer>
+
+    <script>
+        // Система переключения темы
+        function toggleTheme() {
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            document.documentElement.setAttribute('data-theme', newTheme);
+            localStorage.setItem('hig-theme', newTheme);
+            
+            const themeIcon = document.getElementById('theme-icon');
+            themeIcon.textContent = newTheme === 'dark' ? '☀️' : '🌙';
+        }
+
+        // Инициализация темы
+        function initTheme() {
+            const savedTheme = localStorage.getItem('hig-theme');
+            const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            const theme = savedTheme || (systemDark ? 'dark' : 'light');
+            
+            document.documentElement.setAttribute('data-theme', theme);
+            document.getElementById('theme-icon').textContent = theme === 'dark' ? '☀️' : '🌙';
+        }
+
+        // Обновление отображения значений слайдеров
+        const sliders = document.querySelectorAll('.slider');
+        const valueDisplays = document.querySelectorAll('.value-display');
+
+        sliders.forEach((slider, index) => {
+            slider.addEventListener('input', () => {
+                valueDisplays[index].textContent = slider.value;
+            });
+        });
+
+        // Обработка отправки формы
+        const submitBtn = document.getElementById('submit-btn');
+        const testSection = document.getElementById('test');
+        const resultsSection = document.getElementById('results');
+
+        submitBtn.addEventListener('click', () => {
+            // Расчет общего балла
+            let totalScore = 0;
+            sliders.forEach(slider => {
+                totalScore += parseInt(slider.value);
+            });
+
+            const averageScore = (totalScore / 27).toFixed(1);
+
+            // Обновление отображения результатов
+            document.getElementById('total-score').textContent = averageScore;
+            
+            // Анимированное обновление индикатора
+            setTimeout(() => {
+                document.getElementById('score-indicator').style.width = `${(averageScore / 7) * 100}%`;
+            }, 300);
+
+            // Расчет подшкал
+            const subscales = [
+                [3, 9, 15], // Сенсорная чувствительность
+                [5, 12, 16], // Эстетическая чувствительность
+                [4, 8, 11], // Эмоциональная интенсивность
+                [7, 13, 18], // Восприимчивость к перегрузке
+                [2, 6, 10], // Глубина обработки
+                [1, 14, 17]  // Межличностная чувствительность
+            ];
+
+            subscales.forEach((items, index) => {
+                let subscaleScore = 0;
+                items.forEach(item => {
+                    subscaleScore += parseInt(document.getElementById(`slider${item}`).value);
+                });
+
+                const avgSubscaleScore = (subscaleScore / 3).toFixed(1);
+                document.getElementById(`subscale${index + 1}-value`).textContent = avgSubscaleScore;
+                
+                // Анимированное обновление подшкал
+                setTimeout(() => {
+                    document.getElementById(`subscale${index + 1}`).style.width = `${(avgSubscaleScore / 7) * 100}%`;
+                }, 500 + index * 100);
+            });
+
+            // Интерпретация результатов
+            const interpretationText = document.getElementById('interpretation-text');
+            if (averageScore < 3) {
+                interpretationText.innerHTML = `
+                    <p>Ваш результат (${averageScore}) указывает на <strong>низкий уровень высокочувствительности</strong>. Это означает, что вы, вероятно, не являетесь высокочувствительным человеком (HSP).</p>
+                    <p>Люди с низким уровнем чувствительности обычно более устойчивы к сенсорным стимулам, меньше подвержены перегрузке и легче адаптируются к шумным или интенсивным ситуациям.</p>
+                `;
+            } else if (averageScore >= 3 && averageScore < 5) {
+                interpretationText.innerHTML = `
+                    <p>Ваш результат (${averageScore}) указывает на <strong>средний уровень высокочувствительности</strong>. У вас есть некоторые черты HSP, но они не настолько выражены, как у людей с высоким уровнем чувствительности.</p>
+                    <p>Люди со средним уровнем чувствительности могут иметь отдельные области повышенной восприимчивости, но в целом лучше справляются с сенсорными стимулами, чем высокочувствительные люди.</p>
+                `;
+            } else {
+                interpretationText.innerHTML = `
+                    <p>Ваш результат (${averageScore}) указывает на <strong>высокий уровень высокочувствительности</strong>. Вы, вероятно, являетесь высокочувствительным человеком (HSP).</p>
+                    <p>Высокочувствительные люди составляют около 15-20% населения и обладают более глубокой обработкой сенсорной информации. Это врожденная черта, а не расстройство или недостаток.</p>
+                    <p>Ваша повышенная чувствительность может проявляться в виде глубокой эмоциональности, тонкого восприятия деталей, склонности к перегрузке в стимулирующей среде и богатой внутренней жизни.</p>
+                `;
+            }
+
+            // Плавное отображение результатов
+            testSection.style.display = 'none';
+            resultsSection.style.display = 'block';
+            resultsSection.classList.add('fade-in');
+
+            // Прокрутка к результатам
+            setTimeout(() => {
+                resultsSection.scrollIntoView({ behavior: 'smooth' });
+            }, 100);
+        });
+
+        // Перезапуск теста
+        const restartBtn = document.getElementById('restart-btn');
+
+        restartBtn.addEventListener('click', () => {
+            // Сброс всех слайдеров на значение 4
+            sliders.forEach((slider, index) => {
+                slider.value = 4;
+                valueDisplays[index].textContent = 4;
+            });
+
+            // Отображение теста
+            testSection.style.display = 'block';
+            resultsSection.style.display = 'none';
+            resultsSection.classList.remove('fade-in');
+
+            // Прокрутка к началу теста
+            setTimeout(() => {
+                testSection.scrollIntoView({ behavior: 'smooth' });
+            }, 100);
+        });
+
+        // Инициализация при загрузке страницы
+        document.addEventListener('DOMContentLoaded', () => {
+            initTheme();
+        });
+    </script>
+</body>
+</html>
